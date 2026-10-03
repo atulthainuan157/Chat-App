@@ -1,16 +1,51 @@
-import { Tabs, TabsContent, TabsTrigger, TabsList } from '../../components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../components/ui/tabs';
+import { Button } from '../../components/ui/button.jsx';
+import { toast } from '../../components/ui/toast.jsx';
 import { Input } from '../../components/ui/input';
 import Background from '../../assets/login2.png';
 import Victory from '../../assets/victory.svg';
+import { apiClient } from "../../lib/api-client.js"
 import { useState } from 'react';
+import { SIGNUP_ROUTES } from '../../utils/constants.js';
 
 const Auth = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const validateSignup = () => {
+        if(!email.length) {
+            toast.add({
+                title: "❌ Error",
+                description: "Email is required!",
+            });
+            return false;
+        }
+        if(!password.length) {
+            toast.add({
+                title: "❌ Error",
+                description: "Password is required..."
+            });
+            return false;
+        }
+        if(password !== confirmPassword) {
+            toast.add({
+                title: "❌ Error",
+                description: "Password and Confirm password should be same..."
+            })
+            return false;
+        }
+        return true;
+    }
+
     const handleLogin = async () => {};
-    const handleSignup = async () => {};
+
+    const handleSignup = async () => {
+        if(validateSignup()) {
+            const response = await apiClient.post(SIGNUP_ROUTES, {email, password})
+            console.log({response})
+        }
+    };
 
     return (
         <div className='h-screen w-screen flex items-center justify-center bg-gray-50'>
@@ -28,16 +63,16 @@ const Auth = () => {
 
                     <div className='flex items-center justify-center w-full'>
                         <Tabs defaultValue='login' className='w-3/4 flex flex-col'>
-                            <TabsList className='bg-transparent rounded-none w-full flex border-b border-gray-200 p-0'>
+                            <TabsList variant='line' className='bg-transparent rounded-none w-full flex border-b border-gray-700 p-0'>
                                 <TabsTrigger 
                                     value='login' 
-                                    className='w-full rounded-none border-b-2 border-transparent bg-transparent py-3 text-black transition-all data-[state=active]:border-b-purple-500  data-[state=active]:bg-transparent data-[state=active]:font-semibold shadow-none'
+                                    className='w-full rounded-none border-b-2 border-transparent bg-transparent py-3 text-black transition-all data-[state=active]:border-b-blue-500 data-[state=active]:bg-transparent data-[state=active]:font-semibold shadow-none'
                                 >
                                     LogIn
                                 </TabsTrigger>
                                 <TabsTrigger 
                                     value='signup' 
-                                    className='w-full rounded-none border-b-2 border-transparent bg-transparent py-3 text-black transition-all data-[state=active]:border-b-purple-500 data-[state=active]:bg-transparent data-[state=active]:font-semibold shadow-none'
+                                    className='w-full rounded-none border-b-2 border-transparent bg-transparent py-3 text-black transition-all data-[state=active]:border-b-blue-500 data-[state=active]:bg-transparent data-[state=active]:font-semibold shadow-none'
                                 >
                                     SignUp
                                 </TabsTrigger>
@@ -59,12 +94,12 @@ const Auth = () => {
                                     className='rounded-full px-5 py-6 w-full'
                                     onChange={(e) => setPassword(e.target.value)} 
                                 />
-                                <button 
+                                <Button 
                                     onClick={handleLogin}
                                     className='w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 rounded-full transition-colors mt-2'
                                 >
                                     Login
-                                </button>
+                                </Button>
                             </TabsContent>
 
                             {/* SignUp Tab Content */}
@@ -90,12 +125,12 @@ const Auth = () => {
                                     className='rounded-full px-5 py-6 w-full'
                                     onChange={(e) => setConfirmPassword(e.target.value)} 
                                 />
-                                <button 
+                                <Button 
                                     onClick={handleSignup}
                                     className='w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 rounded-full transition-colors mt-2'
                                 >
                                     Sign Up
-                                </button>
+                                </Button>
                             </TabsContent>
                         </Tabs>
                     </div>

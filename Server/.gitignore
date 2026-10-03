@@ -1,41 +1,73 @@
-# Dependencies (Never upload this; it's too large and can be reinstalled)
-node_modules/
-jspm_packages/
-web_modules/
-
-# Environment Variables & Secrets (CRITICAL: Keeps your MongoDB credentials safe)
+# ==============================================================================
+# 1. Environment Secrets & API Keys (CRITICAL SECURITY)
+# ==============================================================================
 .env
 .env.local
-.env.*.local
+.env.development
+.env.production
 *.env
+*.pem
+*.key
+client_secret.json
 
-# Debug & Logs (Files created automatically when your server crashes or logs issues)
+# ==============================================================================
+# 2. Package Dependencies (Language Specific)
+# ==============================================================================
+# Node.js
+node_modules/
+.pnpm-store/
+.yarn/
+
+# Python Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+pyvenv.cfg
+.pytest_cache/
+__pycache__/
+*.pyc
+
+# Docker
+.dockerignore
+
+# ==============================================================================
+# 3. Server Logs & Runtime Data
+# ==============================================================================
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-logs/
-*.log
 
-# Build Outputs (If you ever use TypeScript or compilation tools)
-dist/
-build/
-.next/
-.nuxt/
+# Process Managers (e.g., PM2)
+pm2/
+pids/
+*.pid
 
-# IDE and Editor Files (Settings specific to your local VS Code or computer)
-.vscode/
-.idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# ==============================================================================
+# 4. Databases & Local Caches
+# ==============================================================================
+# SQLite & Local DB files
+*.db
+*.sqlite
+*.sqlite3
 
-# Operating System Files (Hidden junk files created by Windows or macOS)
+# Redis / LevelDB local storage data
+.redis/
+dump.rdb
+
+# App diagnostic caches
+.node_repl_history
+.eslintcache
+.tsbuildinfo
+
+# ==============================================================================
+# 5. OS & IDE System Files
+# ==============================================================================
 .DS_Store
-.DS_Store?
-._*
 Thumbs.db
-ehthumbs.db
-Desktop.ini
+.vscode/
+!.vscode/launch.json
+.idea/
+*.swp
