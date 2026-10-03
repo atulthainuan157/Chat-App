@@ -1,1 +1,1 @@
-Chat-App
+Synchronous Chat Web-Application
