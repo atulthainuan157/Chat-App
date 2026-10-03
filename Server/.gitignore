@@ -1,0 +1,41 @@
+# Dependencies (Never upload this; it's too large and can be reinstalled)
+node_modules/
+jspm_packages/
+web_modules/
+
+# Environment Variables & Secrets (CRITICAL: Keeps your MongoDB credentials safe)
+.env
+.env.local
+.env.*.local
+*.env
+
+# Debug & Logs (Files created automatically when your server crashes or logs issues)
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+*.log
+
+# Build Outputs (If you ever use TypeScript or compilation tools)
+dist/
+build/
+.next/
+.nuxt/
+
+# IDE and Editor Files (Settings specific to your local VS Code or computer)
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Operating System Files (Hidden junk files created by Windows or macOS)
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
