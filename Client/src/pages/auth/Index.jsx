@@ -6,7 +6,7 @@ import Background from '../../assets/login2.png';
 import Victory from '../../assets/victory.svg';
 import { apiClient } from "../../lib/api-client.js"
 import { useState } from 'react';
-import { SIGNUP_ROUTES } from '../../utils/constants.js';
+import { LOGIN_ROUTES, SIGNUP_ROUTES } from '../../utils/constants.js';
 
 const Auth = () => {
     const [email, setEmail] = useState('');
@@ -38,12 +38,53 @@ const Auth = () => {
         return true;
     }
 
-    const handleLogin = async () => {};
+    const validateLogin = () => {
+        if(!email.length) {
+            toast.add({
+                title: "❌ Error",
+                description: "Email is required..."
+            })
+            return false;
+        }
+        if(!password) {
+            toast.add({
+                title: "❌ Error",
+                description: "Password is required..."
+            })
+            return false;
+        }
+        return true;
+    }
+
+    const handleLogin = async () => {
+        if(validateLogin()) {
+            try {
+                const response = await apiClient.post(
+                    LOGIN_ROUTES,
+                    { email, password },
+                    { withCredentials: true }
+                )
+                console.log({response});
+            }
+            catch(error) {
+                console.log(error.message);
+            }
+        }
+    };
 
     const handleSignup = async () => {
         if(validateSignup()) {
-            const response = await apiClient.post(SIGNUP_ROUTES, {email, password})
+            try {
+            const response = await apiClient.post(
+                SIGNUP_ROUTES,
+                {email, password},
+                {withCredentials: true}
+            )
             console.log({response})
+            }
+            catch (error) {
+                console.log(error.message);
+            }
         }
     };
 
